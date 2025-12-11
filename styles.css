@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+/*root variables poori website ko constitent banati hai*/
+:root {
+    /*Background Colors*/
+    --bg-primary-color: #0c0c0c;
+    --bg-fill-color: #fdfdfc;
+    --bg-food-color: #ff3b3b;
+
+
+    /*Text Colors*/
+    --bg-text-primary-color: #f0f0f0;
+
+
+    /*Spacing variables*/
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 40px;
+    --space-3xl: 48px;
+
+
+
+    /*Border color*/
+    --border-primary-color: #333333;
+
+
+    /*Border Radius*/
+    --border-radius-xs: 4px;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 20px;
+    --border-radius-2xl: 24px;
+
+
+
+}
+
+html {
+    background-color: var(--bg-primary-color);
+    color: var(--bg-text-primary-color);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+main,
+section {
+    width: 100%;
+    height: 100%;
+}
+
+.btn {
+    padding: var(--space-sm) var(--space-md);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+section {
+    padding: var(--space-2xl);
+    /*ye joo upar border pe var chu rahe hai usme space deta hai*/
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: rgb(9, 9, 75);
+    gap: var(--space-lg);
+    /*ye sections ke beech me space deta hai*/
+}
+
+section .infos {
+    width: 100%;
+    display: flex;
+    /*ye joo infos ke andar headings hai usko parallel laata hai*/
+    justify-content: space-between;
+    /*ye headings parallel me rahte kitne space lee sakti hai*/
+}
+
+.info {
+    padding: var(--space-sm) var(--space-md);
+    /*ye info ke andar space deta hai*/
+    border: 1px solid var(--border-primary-color);
+    border-radius: var(--border-radius-sm);
+    /*ye corners ko thoda round karta hai*/
+}
+
+.board {
+    border: 1px solid var(--border-primary-color);
+    flex-grow: 1;
+    /*ye board ko jitna space milega le lega*/
+    display: grid;
+    /*ye board ko grid me convert karta hai*/
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    /*ye board me rows and columns define karta hai , minmax means minimum val 30px rahegi aur maximum val 1fraction se jayada rakh nhi paaoge aab iss board me space nhi chuta rahega minmax karne ke baad*/
+    grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+    /*ye board me rows and columns define karta hai, minmax means minimum val 30px rahegi aur maximum val 1fraction se jayada rakh nhi paaoge aab iss board me space nhi chuta rahega minmax karne ke baad*/
+}
+
+.block {
+    /* width: 30 px; */
+    /* height: 30px; */
+    border: 1px solid var(--border-primary-color);
+    /*ye block ke border ko define karta hai*/
+    flex-shrink: 0;
+    /*ye block ko chhota nahi hone dega*/
+}
+
+.fill {
+    background-color: var(--bg-fill-color);
+}
+
+.food {
+    background-color: var(--bg-food-color);
+}
+
+.modal {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    background: color #35353587;
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal .start-game,
+.modal .game-over {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.modal .game-over {
+    display: none;
+}
