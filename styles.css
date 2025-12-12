@@ -2,12 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 html,
 body {
     height: 100%;
     width: 100%;
+    overflow: hidden;
+    position: fixed;
 }
 
 /*root variables poori website ko constitent banati hai*/
@@ -74,51 +78,94 @@ section {
 }
 
 section {
-    padding: var(--space-2xl);
-    /*ye joo upar border pe var chu rahe hai usme space deta hai*/
+    padding: var(--space-md);
     display: flex;
     flex-direction: column;
     height: 100%;
     background-color: rgb(9, 9, 75);
-    gap: var(--space-lg);
-    /*ye sections ke beech me space deta hai*/
+    gap: var(--space-md);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+    section {
+        padding: var(--space-2xl);
+        gap: var(--space-lg);
+    }
 }
 
 section .infos {
     width: 100%;
     display: flex;
-    /*ye joo infos ke andar headings hai usko parallel laata hai*/
-    justify-content: space-between;
-    /*ye headings parallel me rahte kitne space lee sakti hai*/
+    justify-content: space-around;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
 }
 
 .info {
-    padding: var(--space-sm) var(--space-md);
-    /*ye info ke andar space deta hai*/
+    padding: var(--space-xs) var(--space-sm);
     border: 1px solid var(--border-primary-color);
     border-radius: var(--border-radius-sm);
-    /*ye corners ko thoda round karta hai*/
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+}
+
+.info h3 {
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.info span {
+    display: block;
+    font-size: 0.95rem;
+    margin-top: 4px;
+}
+
+@media (min-width: 768px) {
+    .info {
+        padding: var(--space-sm) var(--space-md);
+        min-width: auto;
+    }
+
+    .info h3 {
+        font-size: 1rem;
+    }
+
+    .info span {
+        font-size: 1.1rem;
+    }
 }
 
 .board {
     border: 1px solid var(--border-primary-color);
     flex-grow: 1;
-    /*ye board ko jitna space milega le lega*/
     display: grid;
-    /*ye board ko grid me convert karta hai*/
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-    /*ye board me rows and columns define karta hai , minmax means minimum val 30px rahegi aur maximum val 1fraction se jayada rakh nhi paaoge aab iss board me space nhi chuta rahega minmax karne ke baad*/
-    grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
-    /*ye board me rows and columns define karta hai, minmax means minimum val 30px rahegi aur maximum val 1fraction se jayada rakh nhi paaoge aab iss board me space nhi chuta rahega minmax karne ke baad*/
+    grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(30px, 1fr));
+    min-height: 250px;
+    max-height: 100%;
+}
+
+@media (min-width: 480px) {
+    .board {
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+        grid-template-rows: repeat(auto-fill, minmax(40px, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    .board {
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+    }
 }
 
 .block {
-    /* width: 30 px; */
-    /* height: 30px; */
     border: 1px solid var(--border-primary-color);
-    /*ye block ke border ko define karta hai*/
     flex-shrink: 0;
-    /*ye block ko chhota nahi hone dega*/
+    aspect-ratio: 1 / 1;
 }
 
 .fill {
@@ -134,11 +181,13 @@ section .infos {
     width: 100vw;
     position: fixed;
     top: 0;
-    background: color #35353587;
+    left: 0;
+    background-color: rgba(53, 53, 53, 0.87);
     backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .modal .start-game,
@@ -147,8 +196,89 @@ section .infos {
     flex-direction: column;
     align-items: center;
     gap: var(--space-lg);
+    background-color: var(--bg-primary-color);
+    padding: var(--space-lg);
+    border-radius: var(--border-radius-lg);
+    border: 2px solid var(--border-primary-color);
+    text-align: center;
+}
+
+.modal .start-game h3,
+.modal .game-over h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-md);
 }
 
 .modal .game-over {
     display: none;
+}
+
+.mobile-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) 0;
+}
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    background-color: var(--bg-fill-color);
+    color: var(--bg-primary-color);
+    border: 2px solid var(--border-primary-color);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+.control-btn:active {
+    background-color: var(--bg-food-color);
+    transform: scale(0.95);
+}
+
+.control-row {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .mobile-controls {
+        display: none;
+    }
+}
+
+@media (max-height: 600px) {
+    section {
+        padding: var(--space-sm);
+        gap: var(--space-xs);
+    }
+
+    .mobile-controls {
+        padding: var(--space-sm) 0;
+        gap: 4px;
+    }
+
+    .control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .info {
+        padding: var(--space-xs) 4px;
+        font-size: 0.75rem;
+    }
+
+    .info h3 {
+        font-size: 0.7rem;
+        margin: 0;
+    }
 }
