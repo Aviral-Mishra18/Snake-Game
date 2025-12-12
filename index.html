@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Snake Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,14 +12,14 @@
 <body>
     <main>
         <section>
-            <div class="infos"> <!--infos ke ander high-sore ka box rahega, score rahega aur time rahega..-->
+            <div class="infos">
                 <div class="info">
                     <h3>High-score:
                         <span id="high-score">0</span>
                     </h3>
                 </div>
                 <div class="info">
-                    <h3>score:
+                    <h3>Score:
                         <span id="score">0</span>
                     </h3>
                 </div>
@@ -29,6 +30,14 @@
                 </div>
             </div>
             <div class="board">
+            </div>
+            <div class="mobile-controls">
+                <button class="control-btn up" data-direction="up">▲</button>
+                <div class="control-row">
+                    <button class="control-btn left" data-direction="left">◄</button>
+                    <button class="control-btn down" data-direction="down">▼</button>
+                    <button class="control-btn right" data-direction="right">►</button>
+                </div>
             </div>
         </section>
         <div class="modal">
