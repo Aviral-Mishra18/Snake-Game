@@ -89,6 +89,22 @@ function render() {
         gameOverModal.style.display = "flex"
         return;
     }
+    // Self-collision logic
+
+    const hitSelf = snake.some((segment, index) => {
+        // index !== 0 isliye taaki hum head ko head se hi takrata hua na maan lein
+        return index !== 0 && segment.x === head.x && segment.y === head.y;
+    });
+
+    if (hitSelf) {
+        // Game over logic call karein
+        clearInterval(intervalId);
+        clearInterval(timerIntervalId);
+        modal.style.display = "flex";
+        startGameModal.style.display = "none";
+        gameOverModal.style.display = "flex";
+        return;
+    }
 
     //food Consume Logic
     if (head.x == food.x && head.y == food.y) {
@@ -119,6 +135,7 @@ function render() {
 
     snake.forEach(segment => {
         blocks[`${segment.x}-${segment.y}`].classList.add("fill");
+
     })
 }
 
@@ -179,21 +196,20 @@ function restartGame() {
 }
 
 // Keyboard controls
+// Replace your existing "keydown" listener with this
 addEventListener("keydown", (event) => {
-    if (event.key == "ArrowUp" && direction !== "down") {
-        nextDirection = "up"
-        event.preventDefault()
-    } else if (event.key == "ArrowRight" && direction !== "left") {
-        nextDirection = "right"
-        event.preventDefault()
-    } else if (event.key == "ArrowLeft" && direction !== "right") {
-        nextDirection = "left"
-        event.preventDefault()
-    } else if (event.key == "ArrowDown" && direction !== "up") {
-        nextDirection = "down"
-        event.preventDefault()
+    const key = event.key;
+    // Check if the next move is valid (cannot reverse 180 degrees)
+    if (key === "ArrowUp" && direction !== "down") nextDirection = "up";
+    else if (key === "ArrowRight" && direction !== "left") nextDirection = "right";
+    else if (key === "ArrowLeft" && direction !== "right") nextDirection = "left";
+    else if (key === "ArrowDown" && direction !== "up") nextDirection = "down";
+
+    // Optional: prevent page scrolling with arrows
+    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(key)) {
+        event.preventDefault();
     }
-})
+});
 
 // Mobile touch controls
 mobileControlButtons.forEach(button => {
